@@ -1,4 +1,4 @@
-package toss
+package examples
 
 import (
 	"github.com/stretchr/testify/require"
