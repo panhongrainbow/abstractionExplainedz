@@ -2,32 +2,44 @@ package examples
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func Test_Check_pinball(t *testing.T) {
-	//
-	node := pinball{}
-	node.pinballTree(0, 6)
+	// Creates a root axle node
+	root := axle{}
+	root.axleTree(0, 10, true)
 
-	// node.ListPinballTree(10)
-	node.ListPinballTree(6)
-	test := node.algorithmComparatorCountLayer(8)
-	fmt.Println(test)
-	var layer = 8
-	node.OneBallGoThrough(&layer)
-	fmt.Println(layer)
-	var position = 0
-	node.GoToTheRightEdge(&position)
-	fmt.Println(">>", position)
+	// List the axle tree
+	root.ListAxleTree(0)
+
+	// Calls the comparator algorithm and count the number of axles at the specific depth
+	require.Equal(t,
+		root.algorithmComparatorForCountSpecificDepthAxle(10),
+		root.CountSpecificDepthAxle(10),
+	)
+
+	// One ball moves right from the edge from the position 0
+	var position int
+	root.GoRightEdgeSide(&position)
+	require.Equal(t, 12, position)
+
+	// One ball moves left from the edge from the position 0
 	position = 0
-	node.GoToTheLeftEdge(&position)
-	fmt.Println("<<", position)
+	root.GoToTheLeftEdge(&position)
+	require.Equal(t, -12, position)
 
-	distribution := node.PinballTable(1000)
+	// One ball falling layer by layer.
+	position = 0
+	root.OneBallGoThrough(&position)
+	require.LessOrEqual(t, -12, position)
+	require.GreaterOrEqual(t, 12, position)
+
+	// 1000 balls falling
+	distribution := root.PlayPinballTable(1000)
+
+	// Prints the distribution
+	fmt.Println("distribution:")
 	fmt.Println(distribution)
-	position = 0
-	node.OneBallGoThrough(&position)
-	fmt.Println(position)
-
 }

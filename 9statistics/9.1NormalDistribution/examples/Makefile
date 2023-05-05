@@ -1,7 +1,8 @@
 .PHONY: help
 
 test:
-	go test -v -run='^\QTest_Check_' ./
+	go test -v -run='^\QTest_Check_Toss_And_Count' ./
+	go test -v -run='^\QTest_Check_pinball' ./
 help:
 	@echo "Usage: make [target]"
 	@echo ""
