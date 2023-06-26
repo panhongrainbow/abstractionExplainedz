@@ -30,7 +30,7 @@ func Test_Check_pinball(t *testing.T) {
 	root.GoToTheLeftEdge(&position)
 	require.Equal(t, -12, position)
 
-	// One ball falling layer by layer.
+	// One ball falling layer by layer
 	position = 0
 	root.OneBallGoThrough(&position)
 	require.LessOrEqual(t, -12, position)
